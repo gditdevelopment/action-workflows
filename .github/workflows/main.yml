@@ -7,11 +7,16 @@ on:
     branches: [ "main" ]
   workflow_call:
     secrets:
-      AWS_ACCESS_KEY_ID: 
-      AWS_SECRET_ACCESS_KEY:
-      ipset_id:
-      role-to-assume:
-      token:
+      WAF_ACCESS_KEY_ID: 
+        required: true
+      WAF_SECRET_ACCESS_KEY:
+        required: true
+      IPSET_ID:
+        required: true
+      ROLE_TO_ASSUME:
+        required: true
+      GITHUB_TOKEN:
+        required: true
     
 permissions:
   id-token: write
