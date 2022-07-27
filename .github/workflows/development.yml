@@ -6,6 +6,13 @@ on:
   pull_request: 
     branches: [ "development" ]
   workflow_call:
+    secrets:
+      AWS_ACCESS_KEY_ID: 
+      AWS_SECRET_ACCESS_KEY:
+      ipset_id:
+      role-to-assume:
+      SONAR_TOKEN:
+      SONAR_HOST_URL:
     
 permissions:
   id-token: write
