@@ -13,8 +13,6 @@ on:
         required: true
       ROLE_TO_ASSUME:
         required: true
-      # GITHUB_TOKEN:
-      #   required: true
     
 permissions:
   id-token: write
