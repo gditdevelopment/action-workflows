@@ -74,7 +74,7 @@ jobs:
     
     - name: Run Jest Tests
       if: ${{ inputs.test }} == "true"
-      run: npm test
+        run: npm test
     
     - name: SonarQube Action
       if: always()
