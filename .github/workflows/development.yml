@@ -71,9 +71,15 @@ jobs:
 
     - name: Install dependences
       run: npm i
+      
+    - name: Check if Tests exist
+      id: check_tests
+      uses: andstor/file-existence-action@v1.1.0
+      with: "__tests__"
     
     - name: Run Jest Tests
-      if: ${{ inputs.test }} == true
+      # only run if there are tests to run
+      if: steps.check_tests.outputs.files_exists == 'true'
       run: npm test
     
     - name: SonarQube Action
