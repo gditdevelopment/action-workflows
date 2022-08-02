@@ -73,7 +73,7 @@ jobs:
       run: npm i
     
     - name: Run Jest Tests
-      if: ${test} == "true"
+      if: ${{ inputs.test }} == "true"
       run: npm test
     
     - name: SonarQube Action
