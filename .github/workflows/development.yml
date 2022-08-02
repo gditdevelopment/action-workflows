@@ -4,7 +4,7 @@ on:
   push:
     branches: [ "development" ]
   pull_request: 
-    branches: [ "development", "main" ]
+    branches: [ "development" ]
   workflow_call:
     secrets:
       WAF_ACCESS_KEY_ID: 
@@ -19,6 +19,10 @@ on:
         required: true
       SONAR_HOST_URL:
         required: true
+    inputs:
+      test:
+        required: true
+        type: string
     
 permissions:
   id-token: write
@@ -32,6 +36,7 @@ jobs:
       AWS_DEFAULT_REGION: us-east-1
       AWS_ACCESS_KEY_ID: ${{ secrets.WAF_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.WAF_SECRET_ACCESS_KEY }}
+      TEST: ${{ inputs.test }}
 
     steps:
     - name: Add Public IP to Allow
@@ -68,6 +73,7 @@ jobs:
       run: npm i
     
     - name: Run Jest Tests
+      if: ${test} == "true"
       run: npm test
     
     - name: SonarQube Action
