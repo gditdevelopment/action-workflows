@@ -22,7 +22,7 @@ on:
     inputs:
       test:
         required: true
-        type: string
+        type: boolean
     
 permissions:
   id-token: write
@@ -73,8 +73,8 @@ jobs:
       run: npm i
     
     - name: Run Jest Tests
-      if: ${{ inputs.test }} == "true"
-        run: npm test
+      if: ${{ inputs.test }} == true
+      run: npm test
     
     - name: SonarQube Action
       if: always()
