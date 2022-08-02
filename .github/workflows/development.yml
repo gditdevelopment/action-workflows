@@ -75,7 +75,8 @@ jobs:
     - name: Check if Tests exist
       id: check_tests
       uses: andstor/file-existence-action@v1.1.0
-      with: "__tests__"
+      with: 
+        files: "__tests__"
     
     - name: Run Jest Tests
       # only run if there are tests to run
