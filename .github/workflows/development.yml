@@ -19,10 +19,6 @@ on:
         required: true
       SONAR_HOST_URL:
         required: true
-    inputs:
-      test:
-        required: true
-        type: boolean
     
 permissions:
   id-token: write
@@ -36,7 +32,6 @@ jobs:
       AWS_DEFAULT_REGION: us-east-1
       AWS_ACCESS_KEY_ID: ${{ secrets.WAF_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.WAF_SECRET_ACCESS_KEY }}
-      TEST: ${{ inputs.test }}
 
     steps:
     - name: Add Public IP to Allow
