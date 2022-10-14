@@ -64,7 +64,7 @@ jobs:
       run: npm i
       
     - name: Run Deploy
-      run: npm run deploy -- -n mic -e dev 
+      run: npm run deploy --workspaces --if-present -- -n mic -e dev 
 
     - name: Remove Public IP from Allow
       if: always()
