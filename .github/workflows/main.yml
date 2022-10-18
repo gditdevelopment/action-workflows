@@ -63,8 +63,8 @@ jobs:
     - name: Install dependences
       run: npm i
       
-    - name: Run Deploy
-      run: npm run deploy -- -n mic -e dev 
+    # - name: Run Deploy 
+    #   run: npm run deploy -- -n mic -e dev 
 
     - name: Remove Public IP from Allow
       if: always()
