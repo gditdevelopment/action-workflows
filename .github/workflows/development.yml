@@ -87,7 +87,7 @@ jobs:
         
     - name: SonarQube Quality Gate Red
       if: always()
-      uses: sonarsource/sonarqube-quality-gate-action@master
+      uses: gditdevelopment/sonarqube-quality-gate-action@main
       timeout-minutes: 5
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
