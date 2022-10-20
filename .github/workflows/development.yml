@@ -77,6 +77,10 @@ jobs:
 #       # only run if there are tests to run
 #       if: steps.check_tests.outputs.files_exists == 'true'
 #       run: npm test
+
+    - name: Find lcov
+      if: always()
+      run: find . -name "lcov.info"
     
     - name: SonarQube Action
       if: always()
