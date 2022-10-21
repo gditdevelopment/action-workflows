@@ -65,6 +65,9 @@ jobs:
       
     # - name: Run Deploy 
     #   run: npm run deploy -- -n mic -e dev 
+    
+    - name: Run Deploy 
+      run: ./deploy.sh mic dev 
 
     - name: Remove Public IP from Allow
       if: always()
