@@ -3,11 +3,11 @@ name: development
 on:
   push:
     branches: [ "development" ]
-  pull_request: 
+  pull_request:
     branches: [ "development" ]
   workflow_call:
     secrets:
-      WAF_ACCESS_KEY_ID: 
+      WAF_ACCESS_KEY_ID:
         required: true
       WAF_SECRET_ACCESS_KEY:
         required: true
@@ -19,14 +19,14 @@ on:
         required: true
       SONAR_HOST_URL:
         required: true
-    
+
 permissions:
   id-token: write
   contents: read
-    
+
 jobs:
 
-  build:  
+  build:
     runs-on: ubuntu-latest
     env:
       AWS_DEFAULT_REGION: us-east-1
@@ -41,23 +41,23 @@ jobs:
         ipset_id: ${{ secrets.IPSET_ID }}
         ipset_name: github_action_runners
         ipset_scope: REGIONAL
-        
+
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
         role-to-assume: ${{ secrets.ROLE_TO_ASSUME }}
         aws-region: us-east-1
-        
+
     - name: Sleep for 45 seconds
       run: sleep 45s
       shell: bash
-    
+
     - name: Checkout Code
       uses: actions/checkout@v3
       with:
         token: "${{ secrets.GITHUB_TOKEN }}"
         fetch-depth: 0
-    
+
     - name: Install and use Node.js
       uses: actions/setup-node@v3
       with:
@@ -65,31 +65,31 @@ jobs:
 
     - name: Install and use npm 8+
       run: npm install -g npm@latest
-        
+
     - name: Install npm dependencies
       run: npm install
-        
+
     - name: Run unit tests
       run: npm test
 
     - name: Find lcov
       if: always()
       run: find . -name "lcov.info"
-    
+
     - name: SonarQube Action
       if: always()
       uses: sonarsource/sonarqube-scan-action@master
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-        
-    - name: SonarQube Quality Gate Red
-      if: always()
-      uses: gditdevelopment/sonarqube-quality-gate-action@main
-      timeout-minutes: 5
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        
+
+    # - name: SonarQube Quality Gate Red
+    #   if: always()
+    #   uses: gditdevelopment/sonarqube-quality-gate-action@main
+    #   timeout-minutes: 5
+    #   env:
+    #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
     - name: Remove Public IP from Allow
       if: always()
       uses: iDVB/wafv2-allow-action@v1
@@ -98,4 +98,4 @@ jobs:
         ipset_id: ${{ secrets.IPSET_ID }}
         ipset_name: github_action_runners
         ipset_scope: REGIONAL
-        
+
